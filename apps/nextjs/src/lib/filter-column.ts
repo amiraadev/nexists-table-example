@@ -1,13 +1,19 @@
 import type { Column, ColumnBaseConfig, ColumnDataType } from "drizzle-orm";
 import {
   eq,
+  gt,
+  gte,
   ilike,
   inArray,
   isNotNull,
   isNull,
+  lt,
+  lte,
   not,
   notIlike,
 } from "drizzle-orm";
+
+import { posts } from "@acme/db/schema";
 
 import type { DataTableConfig } from "~/config/data-table";
 
@@ -20,10 +26,33 @@ export function filterColumn({
   value: string;
   isSelectable?: boolean;
 }) {
+ 
   const [filterValue, filterOperator] = value.split("~").filter(Boolean) as [
     string,
-    DataTableConfig["comparisonOperators"][number]["value"] | undefined,
+    DataTableConfig["comparisonOperators"][number]["value"] | DataTableConfig["numberOperators"][number]["value"] | undefined,
   ];
+
+  
+  if (column === posts.commentsNumber) {
+    
+    const filterValueAsNumber = Number(filterValue);
+
+    if (isNaN(filterValueAsNumber)) {
+      return; // Handle invalid number cases
+    }
+    switch (filterOperator) {
+      case "gt":
+        return gt(column, filterValueAsNumber);
+      case "lt":
+        return lt(column, filterValueAsNumber);
+      case "gte":
+        return gte(column, filterValueAsNumber);
+      case "lte":
+        return lte(column, filterValueAsNumber);
+      default:
+        return eq(column, filterValueAsNumber); 
+    }
+  }
 
   if (!filterValue) return;
 
