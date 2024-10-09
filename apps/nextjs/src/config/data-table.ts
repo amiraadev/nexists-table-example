@@ -11,6 +11,13 @@ export const dataTableConfig = {
     { label: "Is empty", value: "isNull" as const },
     { label: "Is not empty", value: "isNotNull" as const },
   ],
+  numberOperators: [ // New category for number-specific operators
+    { label: "Greater than", value: "gt" as const },
+    { label: "Less than", value: "lt" as const },
+    { label: "Greater or equal", value: "gte" as const },
+    { label: "Less or equal", value: "lte" as const },
+    { label: "equal", value: "eq" as const },
+  ],
   selectableOperators: [
     { label: "Is", value: "eq" as const },
     { label: "Is not", value: "notEq" as const },
