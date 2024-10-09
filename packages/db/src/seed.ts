@@ -1,7 +1,7 @@
-import type { Task } from "./schema";
+import type { Post, Task } from "./schema";
 import { db } from "./client";
-import { tasks } from "./schema";
-import { generateRandomTask } from "./util";
+import { posts, tasks } from "./schema";
+import { generateRandomPost, generateRandomTask } from "./util";
 
 async function seedTasks(input: { count: number | null }) {
   const count = input.count ?? 100;
@@ -22,8 +22,23 @@ async function seedTasks(input: { count: number | null }) {
   }
 }
 
-function _seedPosts(_input: { count: number }) {
-  // TODO: Implement this function
+async function seedPosts(_input: { count: number | null }) {
+  const count = _input.count ?? 100;
+  try {
+    const allPosts: Omit<Post, "id">[] = [];
+
+    for (let i = 0; i < count; i++) {
+      allPosts.push(generateRandomPost());
+    }
+
+    await db.delete(posts);
+
+    console.log("📝 Inserting tasks", allPosts.length);
+
+    await db.insert(posts).values(allPosts);
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 function _seedUsers(_input: { count: number }) {
@@ -39,7 +54,8 @@ async function runSeed() {
 
   const start = Date.now();
 
-  await seedTasks({ count: 100 });
+  await seedTasks({ count: 10 });
+  await seedPosts({ count: 50 });
 
   const end = Date.now();
 

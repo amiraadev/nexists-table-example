@@ -3,7 +3,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { CaretDownIcon, Pencil1Icon, PlusIcon } from "@radix-ui/react-icons";
 import { useHotkeys } from "react-hotkeys-hook";
 
-import type { FilterParams, PostView, View } from "@acme/db/schema";
+import type { PostFilterParams, PostView } from "@acme/db/schema";
 import { Button } from "@acme/ui/button";
 import {
   Command,
@@ -24,36 +24,37 @@ import {
 } from "@acme/ui/tooltip";
 
 import { getIsMacOS } from "~/lib/utils";
-import { CreateViewForm } from "./create-view-form";
-import { EditViewForm } from "./edit-view-form";
-import { calcViewSearchParamsURL } from "./utils";
+import { calcPostViewSearchParamsURL } from "../utils";
+import { CreatePostViewForm } from "./create-post-view-form";
+// import { EditViewForm } from "../edit-view-form";
+import { EditPostViewForm } from "./edit-post-view-form";
 
-export type ViewItem = Omit<View, "createdAt" | "updatedAt">;
 export type PostViewItem = Omit<PostView, "createdAt" | "updatedAt">;
-interface DataTableViewsDropdownProps {
-  views: ViewItem[];
-  filterParams: FilterParams;
+
+interface DataTablePostViewsDropdownProps {
+  views: PostViewItem[];
+  filterParams: PostFilterParams;
 }
 
-export function DataTableViewsDropdown({
+export function DataTablePostViewsDropdown({
   views,
   filterParams,
-}: DataTableViewsDropdownProps) {
+}: DataTablePostViewsDropdownProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const [open, setOpen] = useState(false);
   const [isCreateViewFormOpen, setIsCreateViewFormOpen] = useState(false);
-  const [isEditViewFormOpen, setIsEditViewFormOpen] = useState(false);
-  const [selectedView, setSelectedView] = useState<ViewItem | null>(null);
+  const [isEditPostViewFormOpen, setIsEditPostViewFormOpen] = useState(false);
+  const [selectedView, setSelectedView] = useState<PostViewItem | null>(null);
 
   const currentView = views.find(
     (view) => view.id === searchParams.get("viewId"),
   );
 
-  function selectView(view: ViewItem) {
-    const searchParamsURL = calcViewSearchParamsURL(view);
+  function selectView(view: PostViewItem) {
+    const searchParamsURL = calcPostViewSearchParamsURL(view);
     router.push(`${pathname}?${searchParamsURL}`, {
       scroll: false,
     });
@@ -70,7 +71,7 @@ export function DataTableViewsDropdown({
       onOpenChange={(value) => {
         setOpen(value);
         setIsCreateViewFormOpen(false);
-        setIsEditViewFormOpen(false);
+        setIsEditPostViewFormOpen(false);
       }}
     >
       <TooltipProvider>
@@ -104,7 +105,7 @@ export function DataTableViewsDropdown({
         align="start"
       >
         {isCreateViewFormOpen && (
-          <CreateViewForm
+          <CreatePostViewForm
             backButton
             onBack={() => setIsCreateViewFormOpen(false)}
             filterParams={filterParams}
@@ -112,14 +113,15 @@ export function DataTableViewsDropdown({
           />
         )}
 
-        {isEditViewFormOpen && selectedView && (
-          <EditViewForm
+        {isEditPostViewFormOpen && selectedView && (
+          // <EditViewForm
+          <EditPostViewForm
             view={selectedView}
-            setIsEditViewFormOpen={setIsEditViewFormOpen}
+            setIsEditPostViewFormOpen={setIsEditPostViewFormOpen}
           />
         )}
 
-        {!isCreateViewFormOpen && !isEditViewFormOpen && (
+        {!isCreateViewFormOpen && !isEditPostViewFormOpen && (
           <Command className="dark:bg-transparent">
             <CommandInput placeholder="View name" />
             <CommandList>
@@ -151,7 +153,7 @@ export function DataTableViewsDropdown({
                       className="invisible size-5 shrink-0 hover:bg-neutral-200 group-hover:visible dark:hover:bg-neutral-700"
                       onClick={(e) => {
                         e.stopPropagation();
-                        setIsEditViewFormOpen(true);
+                        setIsEditPostViewFormOpen(true);
                         setSelectedView(view);
                       }}
                     >

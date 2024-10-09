@@ -3,7 +3,7 @@ import type { ReadonlyURLSearchParams } from "next/navigation";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-import type { SearchParams } from "@acme/db/schema";
+import type { SearchParams, SearchPostParams } from "@acme/db/schema";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -45,9 +45,12 @@ export function composeEventHandlers<E>(
 export type Params = Partial<
   Record<keyof SearchParams, string | number | null | undefined>
 >;
+export type PostParams = Partial<
+  Record<keyof SearchPostParams, string | number | null | undefined>
+>;
 
 export function createQueryString(
-  params: Params,
+  params: Params | PostParams,
   searchParams: ReadonlyURLSearchParams,
 ) {
   const newSearchParams = new URLSearchParams(searchParams.toString());
