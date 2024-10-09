@@ -2,6 +2,7 @@ import type { SQL } from "drizzle-orm";
 import type React from "react";
 
 export type SearchParams = Record<string, string | string[] | undefined>;
+export type PostSearchParams = Record<string, string | number | string[] | undefined>;
 
 export interface Option {
   label: string;
