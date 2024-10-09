@@ -15,6 +15,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@acme/ui/form";
+import { Input } from "@acme/ui/input";
 import { LoaderIcon } from "@acme/ui/loader-icon";
 import {
   Select,
@@ -37,7 +38,6 @@ import { Textarea } from "@acme/ui/textarea";
 import { toast } from "@acme/ui/toast";
 
 import { updatePost } from "~/app/posts/_lib/actions";
-import { Input } from "@acme/ui/input";
 
 interface UpdatePostSheetProps
   extends React.ComponentPropsWithRef<typeof Sheet> {
@@ -167,7 +167,9 @@ export function UpdatePostSheet({ post, ...props }: UpdatePostSheetProps) {
                     <Input
                       placeholder="comments ..."
                       className="resize-none"
-                      onChange={(e) => field.onChange(parseInt(e.target.value, 10))}
+                      onChange={(e) =>
+                        field.onChange(parseInt(e.target.value, 10))
+                      }
                       value={field.value} // Ensure the value stays consistent with the state
                     />
                   </FormControl>

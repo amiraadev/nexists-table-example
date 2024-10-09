@@ -104,7 +104,7 @@ export function DataTableAdvancedPostToolbar<TData>({
   const isFiltered = getIsPostFiltered(searchParams);
 
   const viewId = searchParams.get("viewId");
-  
+
   const currentView = views.find((view) => view.id === viewId);
 
   const columns = table

@@ -27,7 +27,7 @@ import { DataTableColumnHeader } from "~/components/data-table/data-table-column
 import { getErrorMessage } from "~/lib/handle-error";
 import { formatDate } from "~/lib/utils";
 import { updatePost } from "../_lib/actions";
-import {  getStatusIcon } from "../_lib/utils";
+import { getStatusIcon } from "../_lib/utils";
 import { DeletePostsDialog } from "./delete-posts-dialog";
 import { UpdatePostSheet } from "./update-post-sheet";
 
@@ -71,7 +71,9 @@ export function getColumns(): ColumnDef<Post>[] {
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Author Name" />
       ),
-      cell: ({ row }) => <div className="w-20">{row.getValue("authorName")}</div>,
+      cell: ({ row }) => (
+        <div className="w-20">{row.getValue("authorName")}</div>
+      ),
       enableSorting: true,
       enableHiding: false,
     },
@@ -104,14 +106,16 @@ export function getColumns(): ColumnDef<Post>[] {
       },
     },
     {
-        accessorKey: "commentsNumber",
-        header: ({ column }) => (
-          <DataTableColumnHeader column={column} title="Comments Number" />
-        ),
-        cell: ({ row }) => <div className="w-20">{row.getValue("commentsNumber")}</div>,
-        enableSorting: true,
-        enableHiding: false,
-      },
+      accessorKey: "commentsNumber",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Comments Number" />
+      ),
+      cell: ({ row }) => (
+        <div className="w-20">{row.getValue("commentsNumber")}</div>
+      ),
+      enableSorting: true,
+      enableHiding: false,
+    },
     {
       accessorKey: "createdAt",
       header: ({ column }) => (

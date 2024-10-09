@@ -26,15 +26,16 @@ export function filterColumn({
   value: string;
   isSelectable?: boolean;
 }) {
- 
   const [filterValue, filterOperator] = value.split("~").filter(Boolean) as [
     string,
-    DataTableConfig["comparisonOperators"][number]["value"] | DataTableConfig["numberOperators"][number]["value"] | undefined,
+    (
+      | DataTableConfig["comparisonOperators"][number]["value"]
+      | DataTableConfig["numberOperators"][number]["value"]
+      | undefined
+    ),
   ];
 
-  
   if (column === posts.commentsNumber) {
-    
     const filterValueAsNumber = Number(filterValue);
 
     if (isNaN(filterValueAsNumber)) {
@@ -50,7 +51,7 @@ export function filterColumn({
       case "lte":
         return lte(column, filterValueAsNumber);
       default:
-        return eq(column, filterValueAsNumber); 
+        return eq(column, filterValueAsNumber);
     }
   }
 

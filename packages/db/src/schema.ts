@@ -27,8 +27,8 @@ export const posts = pgTable("posts", {
   commentsNumber: integer("commentsNumber").notNull().default(0),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
-  .default(sql`current_timestamp`)
-  .$onUpdate(() => new Date()),
+    .default(sql`current_timestamp`)
+    .$onUpdate(() => new Date()),
 });
 
 export type Post = typeof posts.$inferSelect;

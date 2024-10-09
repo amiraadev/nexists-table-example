@@ -175,8 +175,8 @@ export function CreatePostDialog() {
                 </FormItem>
               )}
             />
-         
-         <FormField
+
+            <FormField
               control={form.control}
               name="commentsNumber"
               render={({ field }) => (

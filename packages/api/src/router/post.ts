@@ -2,7 +2,7 @@ import type { TRPCRouterRecord } from "@trpc/server";
 import { z } from "zod";
 
 import { desc, eq } from "@acme/db";
-import { posts,createPostSchema } from "@acme/db/schema";
+import { createPostSchema, posts } from "@acme/db/schema";
 
 import { publicProcedure } from "../trpc";
 

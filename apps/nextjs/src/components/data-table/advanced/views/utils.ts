@@ -11,8 +11,11 @@ import type {
   Sort,
 } from "@acme/db/schema";
 
-import type { ViewItem ,PostViewItem } from "~/components/data-table/advanced/views/data-table-views-dropdown";
-import type { Params,PostParams } from "~/lib/utils";
+import type {
+  PostViewItem,
+  ViewItem,
+} from "~/components/data-table/advanced/views/data-table-views-dropdown";
+import type { Params, PostParams } from "~/lib/utils";
 import type { DataTableFilterOption } from "~/types";
 import { createQueryString } from "~/lib/utils";
 
@@ -77,7 +80,8 @@ export function calcPostFilterParams<T = unknown>(
   const postFilterParams: PostFilterParams = {
     filters: filterItems,
   };
-  postFilterParams.operator = (searchParams.get("operator") as Operator) ?? "and";
+  postFilterParams.operator =
+    (searchParams.get("operator") as Operator) ?? "and";
   if (searchParams.get("sort")) {
     postFilterParams.sort = searchParams.get("sort") as Sort;
   }

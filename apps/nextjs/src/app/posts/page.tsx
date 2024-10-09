@@ -14,7 +14,6 @@ export interface IndexPageProps {
 }
 
 export default function IndexPage({ searchParams }: IndexPageProps) {
-  
   const search = searchPostParamsSchema.parse(searchParams);
   const postsPromise = getPosts(search);
   const viewsPromise = getPostViews();

@@ -66,7 +66,6 @@ export function PostsTable({ postsPromise, viewsPromise }: PostsTableProps) {
       value: "commentsNumber",
       placeholder: "Filter comments number...",
     },
-
   ];
 
   const { table } = useDataTable({

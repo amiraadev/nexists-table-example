@@ -86,14 +86,13 @@ export async function updatePost(input: UpdatePostSchema & { id: string }) {
   noStore();
 
   try {
-     await db
+    await db
       .update(posts)
       .set({
         title: input.title,
         authorName: input.authorName,
         status: input.status,
         commentsNumber: input.commentsNumber,
-        
       })
       .where(eq(posts.id, input.id));
 
