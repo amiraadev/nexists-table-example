@@ -50,7 +50,9 @@ export function DataTableFilterItem<TData>({
   const comparisonOperators =
     selectedOption.options.length > 0
       ? dataTableConfig.selectableOperators
-      : dataTableConfig.comparisonOperators;
+      : selectedOption.value === "commentsNumber"
+        ? dataTableConfig.numberOperators
+        : dataTableConfig.comparisonOperators;
 
   const value = selectedOption.filterValues?.[0] ?? "";
   const debounceValue = useDebounce(value, 500);
