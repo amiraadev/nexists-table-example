@@ -3,7 +3,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { CaretDownIcon, Pencil1Icon, PlusIcon } from "@radix-ui/react-icons";
 import { useHotkeys } from "react-hotkeys-hook";
 
-import type { FilterParams, View } from "@acme/db/schema";
+import type { FilterParams, PostView, View } from "@acme/db/schema";
 import { Button } from "@acme/ui/button";
 import {
   Command,
@@ -29,7 +29,7 @@ import { EditViewForm } from "./edit-view-form";
 import { calcViewSearchParamsURL } from "./utils";
 
 export type ViewItem = Omit<View, "createdAt" | "updatedAt">;
-
+export type PostViewItem = Omit<PostView, "createdAt" | "updatedAt">;
 interface DataTableViewsDropdownProps {
   views: ViewItem[];
   filterParams: FilterParams;
